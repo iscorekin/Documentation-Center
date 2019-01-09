@@ -1,0 +1,20 @@
+﻿@model IEnumerable<DocumentationCenter.Models.FileModel>
+@{
+    ViewData["Title"] = "Documentation Center";
+}
+
+<h3>Выберите файл для загрузки</h3>
+<form asp-action="UploadFile" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <input type="file" name="File" /><br>
+    <p>Описание</p>
+    <input type="text" name="description" /><br>
+    <input type="submit" value="Загрузить" />
+</form>
+<h3>Все документы</h3>
+<table class="table">
+    <tr><td>Имя</td><td>Описание</td><td>Скачать</td><td>Удалить</td></tr>
+    @foreach (var item in Model)
+    {
+        <tr><td>@item.Name</td><td>@item.Description</td><td><a asp-action="Download" asp-controller="Home" asp-route-path="@item.Path">Скачать</a></td><td><a asp-action="Delete" asp-controller="Home" asp-route-path="@item.Path" asp-route-id="@item.Id">Удалить</a></td></tr>
+    }
+</table>
